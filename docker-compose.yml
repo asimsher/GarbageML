@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  speech_api:
+    build: .
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    environment:
+      UVICORN_WORKERS:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app
+    depends_on:
+      - speech_api
+
