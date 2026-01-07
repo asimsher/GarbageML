@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir -r req.txt
 
 
 COPY main.py .
-COPY model_urban.pth .
+COPY model_garbage.pth .
 COPY classes.pth .
 
 EXPOSE 8000
